@@ -2,42 +2,40 @@ package mk.ukim.finki.emt.lab.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Entity
-public class Host {
+public class Guest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long host_id;
+    private Long guest_id;
     private String name;
     private String surname;
     @ManyToOne
     private Country country;
+    @ManyToMany(mappedBy = "guests", fetch = FetchType.EAGER)
+    private List<Host> hosts;
 
-    @ManyToMany
-    @JoinTable(name = "hosts_guests", joinColumns = @JoinColumn(name = "host_id"), inverseJoinColumns = @JoinColumn(name = "guest_id"))
-    private List<Guest> guests;
-
-    public Host(){
-        guests = new ArrayList<>();
+    public Guest(){
+        hosts = new ArrayList<>();
     }
 
-    public Host(String name, String surname, Country country) {
+    public Guest(String name, String surname, Country country, List<Host> hosts) {
         this.name = name;
         this.surname = surname;
         this.country = country;
+        this.hosts = hosts;
     }
 
     public Long getId() {
-        return host_id;
+        return guest_id;
     }
 
     public void setId(Long id) {
-        this.host_id = id;
+        this.guest_id = id;
     }
 
     public String getName() {
@@ -64,11 +62,11 @@ public class Host {
         this.country = country;
     }
 
-    public List<Guest> getGuests() {
-        return guests;
+    public List<Host> getHosts() {
+        return hosts;
     }
 
-    public void setGuests(Guest guest) {
-        this.guests.add(guest);
+    public void setHosts(List<Host> hosts) {
+        this.hosts = hosts;
     }
 }

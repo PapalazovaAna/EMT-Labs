@@ -1,25 +1,27 @@
 package mk.ukim.finki.emt.lab.config;
 
 import jakarta.annotation.PostConstruct;
-import mk.ukim.finki.emt.lab.model.Accommodation;
-import mk.ukim.finki.emt.lab.model.Category;
-import mk.ukim.finki.emt.lab.model.Country;
-import mk.ukim.finki.emt.lab.model.Host;
+import mk.ukim.finki.emt.lab.model.*;
 import mk.ukim.finki.emt.lab.repository.AccommodationRepository;
 import mk.ukim.finki.emt.lab.repository.CountryRepository;
+import mk.ukim.finki.emt.lab.repository.GuestRepository;
 import mk.ukim.finki.emt.lab.repository.HostRepository;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 public class DataInitializer {
     private final AccommodationRepository accommodationRepository;
     private final CountryRepository countryRepository;
     private final HostRepository hostRepository;
+    private final GuestRepository guestRepository;
 
-    public DataInitializer(AccommodationRepository accommodationRepository, CountryRepository countryRepository, HostRepository hostRepository) {
+    public DataInitializer(AccommodationRepository accommodationRepository, CountryRepository countryRepository, HostRepository hostRepository, GuestRepository guestRepository) {
         this.accommodationRepository = accommodationRepository;
         this.countryRepository = countryRepository;
         this.hostRepository = hostRepository;
+        this.guestRepository = guestRepository;
     }
 
 
@@ -38,24 +40,34 @@ public class DataInitializer {
         Host host2 = new Host("Klara", "Meier", country1);
         Host host3 = new Host("Oliver", "Brown", country2);
         Host host4 = new Host("Charlotte", "Taylor", country2);
-        Host host5 = new Host("Liam", "Robinson", country3);
-        Host host6 = new Host("Sarah", "Davis", country4);
-        Host host7 = new Host("Jessica", "White", country4);
+
         hostRepository.save(host1);
         hostRepository.save(host2);
         hostRepository.save(host3);
         hostRepository.save(host4);
-        hostRepository.save(host5);
-        hostRepository.save(host6);
-        hostRepository.save(host7);
+
+        List<Host> guest1Hosts = List.of(host1, host2);
+        List<Host> guest2Hosts = List.of(host1, host3);
+        List<Host> guest3Hosts = List.of(host4);
+        List<Host> guest4Hosts = List.of(host2, host3);
+
+        Guest guest1 = new Guest("Anna", "Black", country1, guest1Hosts);
+        Guest guest2 = new Guest("Mike", "Patterson", country2, guest2Hosts);
+        Guest guest3 = new Guest("Jack", "Stone", country3, guest3Hosts);
+        Guest guest4 = new Guest("Harry", "Swift", country4, guest4Hosts);
+
+        guestRepository.save(guest1);
+        guestRepository.save(guest2);
+        guestRepository.save(guest3);
+        guestRepository.save(guest4);
 
         Accommodation acc1 = new Accommodation("Sunny Apartments", Category.APARTMENT, host1, 10, false);
         Accommodation acc2 = new Accommodation("Mountain Retreat", Category.HOTEL, host2, 5, true);
         Accommodation acc3 = new Accommodation("Seaside Villa", Category.HOUSE, host3, 3, false);
-        Accommodation acc4 = new Accommodation("City Center Loft", Category.FLAT, host4, 2, true);
-        Accommodation acc5 = new Accommodation("Lake House", Category.HOUSE, host5, 4, false);
-        Accommodation acc6 = new Accommodation("Budget Motel", Category.MOTEL, host6, 20, true);
-        Accommodation acc7 = new Accommodation("Luxury Resort", Category.HOTEL, host7, 50, false);
+        Accommodation acc4 = new Accommodation("City Center Loft", Category.FLAT, host1, 2, true);
+        Accommodation acc5 = new Accommodation("Lake House", Category.HOUSE, host1, 4, false);
+        Accommodation acc6 = new Accommodation("Budget Motel", Category.MOTEL, host2, 20, true);
+        Accommodation acc7 = new Accommodation("Luxury Resort", Category.HOTEL, host3, 50, false);
         accommodationRepository.save(acc1);
         accommodationRepository.save(acc2);
         accommodationRepository.save(acc3);
@@ -63,8 +75,6 @@ public class DataInitializer {
         accommodationRepository.save(acc5);
         accommodationRepository.save(acc6);
         accommodationRepository.save(acc7);
-
-
     }
 
 }

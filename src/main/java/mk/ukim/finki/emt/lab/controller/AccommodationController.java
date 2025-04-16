@@ -1,7 +1,7 @@
 package mk.ukim.finki.emt.lab.controller;
 
 import mk.ukim.finki.emt.lab.model.Accommodation;
-import mk.ukim.finki.emt.lab.model.dto.AccommodationDto;
+import mk.ukim.finki.emt.lab.dto.AccommodationDto;
 import mk.ukim.finki.emt.lab.service.AccommodationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

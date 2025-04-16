@@ -1,9 +1,7 @@
 package mk.ukim.finki.emt.lab.service;
 
 import mk.ukim.finki.emt.lab.model.Accommodation;
-import mk.ukim.finki.emt.lab.model.Category;
-import mk.ukim.finki.emt.lab.model.Host;
-import mk.ukim.finki.emt.lab.model.dto.AccommodationDto;
+import mk.ukim.finki.emt.lab.dto.AccommodationDto;
 
 import java.util.List;
 import java.util.Optional;

@@ -1,7 +1,7 @@
 package mk.ukim.finki.emt.lab.service.impl;
 
 import mk.ukim.finki.emt.lab.model.Accommodation;
-import mk.ukim.finki.emt.lab.model.dto.AccommodationDto;
+import mk.ukim.finki.emt.lab.dto.AccommodationDto;
 import mk.ukim.finki.emt.lab.repository.AccommodationRepository;
 import mk.ukim.finki.emt.lab.service.AccommodationService;
 import mk.ukim.finki.emt.lab.service.CountryService;

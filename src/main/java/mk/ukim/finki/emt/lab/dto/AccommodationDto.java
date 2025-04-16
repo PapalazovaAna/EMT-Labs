@@ -1,4 +1,4 @@
-package mk.ukim.finki.emt.lab.model.dto;
+package mk.ukim.finki.emt.lab.dto;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
