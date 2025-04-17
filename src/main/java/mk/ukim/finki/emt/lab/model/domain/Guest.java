@@ -1,30 +1,42 @@
-package mk.ukim.finki.emt.lab.dto;
+package mk.ukim.finki.emt.lab.model.domain;
 
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Data;
-import mk.ukim.finki.emt.lab.model.domain.Country;
-import mk.ukim.finki.emt.lab.model.domain.Host;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class GuestDto {
+@Entity
+public class Guest {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long guest_id;
     private String name;
     private String surname;
     @ManyToOne
     private Country country;
-    @ManyToMany(mappedBy = "guests")
+    @ManyToMany(mappedBy = "guests", fetch = FetchType.EAGER)
     private List<Host> hosts;
 
-    public GuestDto(){}
+    public Guest(){
+        hosts = new ArrayList<>();
+    }
 
-    public GuestDto(String name, String surname, Country country) {
+    public Guest(String name, String surname, Country country, List<Host> hosts) {
         this.name = name;
         this.surname = surname;
         this.country = country;
+        this.hosts = hosts;
     }
 
+    public Long getId() {
+        return guest_id;
+    }
+
+    public void setId(Long id) {
+        this.guest_id = id;
+    }
 
     public String getName() {
         return name;

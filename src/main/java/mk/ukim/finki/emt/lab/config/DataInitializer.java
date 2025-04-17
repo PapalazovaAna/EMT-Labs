@@ -1,11 +1,11 @@
 package mk.ukim.finki.emt.lab.config;
 
 import jakarta.annotation.PostConstruct;
-import mk.ukim.finki.emt.lab.model.*;
-import mk.ukim.finki.emt.lab.repository.AccommodationRepository;
-import mk.ukim.finki.emt.lab.repository.CountryRepository;
-import mk.ukim.finki.emt.lab.repository.GuestRepository;
-import mk.ukim.finki.emt.lab.repository.HostRepository;
+import mk.ukim.finki.emt.lab.model.domain.*;
+import mk.ukim.finki.emt.lab.model.enumerations.Category;
+import mk.ukim.finki.emt.lab.model.enumerations.Role;
+import mk.ukim.finki.emt.lab.repository.*;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -16,12 +16,16 @@ public class DataInitializer {
     private final CountryRepository countryRepository;
     private final HostRepository hostRepository;
     private final GuestRepository guestRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public DataInitializer(AccommodationRepository accommodationRepository, CountryRepository countryRepository, HostRepository hostRepository, GuestRepository guestRepository) {
+    public DataInitializer(AccommodationRepository accommodationRepository, CountryRepository countryRepository, HostRepository hostRepository, GuestRepository guestRepository, UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.accommodationRepository = accommodationRepository;
         this.countryRepository = countryRepository;
         this.hostRepository = hostRepository;
         this.guestRepository = guestRepository;
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
 
@@ -75,6 +79,10 @@ public class DataInitializer {
         accommodationRepository.save(acc5);
         accommodationRepository.save(acc6);
         accommodationRepository.save(acc7);
+
+
+        userRepository.save(new User("ap", passwordEncoder.encode("ap"), "Ana", "Papalazova", Role.ROLE_USER));
+        userRepository.save(new User("dp", passwordEncoder.encode("dp"), "Darko", "Popov", Role.ROLE_HOST));
     }
 
 }
