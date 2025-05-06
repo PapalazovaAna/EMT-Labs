@@ -3,7 +3,9 @@ package mk.ukim.finki.emt.lab.service.application;
 import mk.ukim.finki.emt.lab.dto.CreateAccommodationDto;
 import mk.ukim.finki.emt.lab.dto.DisplayAccommodationDto;
 import mk.ukim.finki.emt.lab.model.domain.Accommodation;
+import mk.ukim.finki.emt.lab.model.enumerations.Category;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,5 +16,7 @@ public interface AccommodationApplicationService {
     Optional<DisplayAccommodationDto> update(Long id, CreateAccommodationDto accommodation);
     void setRented(Long id);
     void deleteById(Long id);
+
+    HashMap<Category, Integer> statisticsForCategories();
 
 }

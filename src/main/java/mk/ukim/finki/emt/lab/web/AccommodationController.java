@@ -4,11 +4,14 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import mk.ukim.finki.emt.lab.dto.TemporaryReservationDto;
 import mk.ukim.finki.emt.lab.model.domain.Accommodation;
+import mk.ukim.finki.emt.lab.model.enumerations.Category;
 import mk.ukim.finki.emt.lab.service.domain.AccommodationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -82,5 +85,12 @@ public class AccommodationController {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @Operation(summary = "Get statistics for accommodations", description = "Returns a map for all the accommodation categories and the number of available accommodations from that category")
+    @ApiResponse(responseCode = "200", description = "Successfully retrieved statistics")
+    @GetMapping("/statistics")
+    public HashMap<Category, Integer> getStatistics(){
+        return accommodationService.statisticsForCategories();
     }
 }

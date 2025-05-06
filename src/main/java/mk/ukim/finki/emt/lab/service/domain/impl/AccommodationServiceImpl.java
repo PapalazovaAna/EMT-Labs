@@ -1,12 +1,14 @@
 package mk.ukim.finki.emt.lab.service.domain.impl;
 
 import mk.ukim.finki.emt.lab.model.domain.Accommodation;
+import mk.ukim.finki.emt.lab.model.enumerations.Category;
 import mk.ukim.finki.emt.lab.repository.AccommodationRepository;
 import mk.ukim.finki.emt.lab.service.domain.AccommodationService;
 import mk.ukim.finki.emt.lab.service.domain.CountryService;
 import mk.ukim.finki.emt.lab.service.domain.HostService;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,6 +46,20 @@ public class AccommodationServiceImpl implements AccommodationService {
     @Override
     public Optional<Accommodation> findById(Long id) {
         return accommodationRepository.findById(id);
+    }
+
+    @Override
+    public HashMap<Category, Integer> statisticsForCategories() {
+        HashMap<Category, Integer> statistics = new HashMap<>();
+        for (Accommodation accommodation: accommodationRepository.findAll()) {
+            if(statistics.containsKey(accommodation.getCategory())){
+                statistics.replace(accommodation.getCategory(), statistics.get(accommodation.getCategory()), statistics.get(accommodation.getCategory()) + 1);
+            }
+            else{
+                statistics.put(accommodation.getCategory(), 1);
+            }
+        }
+        return statistics;
     }
 
     @Override

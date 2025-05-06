@@ -3,12 +3,14 @@ package mk.ukim.finki.emt.lab.service.application.impl;
 import mk.ukim.finki.emt.lab.dto.CreateAccommodationDto;
 import mk.ukim.finki.emt.lab.dto.DisplayAccommodationDto;
 import mk.ukim.finki.emt.lab.model.domain.Host;
+import mk.ukim.finki.emt.lab.model.enumerations.Category;
 import mk.ukim.finki.emt.lab.service.application.AccommodationApplicationService;
 import mk.ukim.finki.emt.lab.service.domain.AccommodationService;
 import mk.ukim.finki.emt.lab.service.domain.CountryService;
 import mk.ukim.finki.emt.lab.service.domain.HostService;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -59,5 +61,10 @@ public class AccommodationApplicationServiceImpl implements AccommodationApplica
     @Override
     public void deleteById(Long id) {
         accommodationService.deleteById(id);
+    }
+
+    @Override
+    public HashMap<Category, Integer> statisticsForCategories() {
+        return accommodationService.statisticsForCategories();
     }
 }
