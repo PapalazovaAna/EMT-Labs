@@ -8,6 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Lazy;
+
 
 @Component
 public class CustomUsernamePasswordAuthenticationProvider implements AuthenticationProvider {
@@ -16,7 +18,7 @@ public class CustomUsernamePasswordAuthenticationProvider implements Authenticat
     private final PasswordEncoder passwordEncoder;
 
     public CustomUsernamePasswordAuthenticationProvider(
-            UserService userService,
+            @Lazy UserService userService,
             PasswordEncoder passwordEncoder
     ) {
         this.userService = userService;

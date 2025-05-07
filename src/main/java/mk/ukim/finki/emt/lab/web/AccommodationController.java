@@ -4,10 +4,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import mk.ukim.finki.emt.lab.dto.TemporaryReservationDto;
 import mk.ukim.finki.emt.lab.model.domain.Accommodation;
 import mk.ukim.finki.emt.lab.model.enumerations.Category;
+import mk.ukim.finki.emt.lab.service.application.HostApplicationService;
 import mk.ukim.finki.emt.lab.service.domain.AccommodationService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,9 +21,11 @@ import java.util.List;
 public class AccommodationController {
 
     private final AccommodationService accommodationService;
+    private final HostApplicationService hostApplicationService;
 
-    public AccommodationController(AccommodationService accommodationService) {
+    public AccommodationController(AccommodationService accommodationService, HostApplicationService hostApplicationService) {
         this.accommodationService = accommodationService;
+        this.hostApplicationService = hostApplicationService;
     }
 
     @Operation(summary = "Get all accommodations", description = "Returns a list of all accommodations")
@@ -92,5 +95,17 @@ public class AccommodationController {
     @GetMapping("/statistics")
     public HashMap<Category, Integer> getStatistics(){
         return accommodationService.statisticsForCategories();
+    }
+
+    @GetMapping("/by-host")
+    @Operation(summary = "List number of accommodations per host for every host")
+    public ResponseEntity<?> findAllNumberOfAccommodationsPerHost() {
+        return ResponseEntity.status(HttpStatus.OK).body(hostApplicationService.findAllAccommodationsPerHost());
+    }
+
+    @GetMapping("/by-host/{id}")
+    @Operation(summary = "List number of accommodations per host for a given host")
+    public ResponseEntity<?> findNumberOfAccommodationsPerHost(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(hostApplicationService.findAccommodationsPerHost(id));
     }
 }

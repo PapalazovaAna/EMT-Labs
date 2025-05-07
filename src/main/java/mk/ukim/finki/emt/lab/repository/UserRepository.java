@@ -1,5 +1,6 @@
 package mk.ukim.finki.emt.lab.repository;
 
+import io.micrometer.common.lang.NonNull;
 import mk.ukim.finki.emt.lab.model.domain.User;
 import mk.ukim.finki.emt.lab.model.enumerations.Role;
 import mk.ukim.finki.emt.lab.model.projections.UserProjection;
@@ -36,5 +37,13 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     @Query("select u.username, u.name, u.surname from User u")
     List<UserProjection> takeUsernameAndNameAndSurnameByProjection();
+    @NonNull
+    @Override
+    @EntityGraph(
+            type = EntityGraph.EntityGraphType.FETCH,
+            attributePaths = {"temporaryReservations"}
+    )
+    List<User> findAll();
+        List<UserProjection> findAllProjectedBy();
 
 }

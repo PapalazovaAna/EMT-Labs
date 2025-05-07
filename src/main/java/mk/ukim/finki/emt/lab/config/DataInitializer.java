@@ -29,7 +29,7 @@ public class DataInitializer {
     }
 
 
-    @PostConstruct
+//    @PostConstruct
     public void init() {
         Country country1 = new Country("Austria", "Europe");
         Country country2 = new Country("UK", "Europe");

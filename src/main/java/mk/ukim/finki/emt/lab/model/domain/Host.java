@@ -13,7 +13,7 @@ import java.util.List;
 public class Host {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long host_id;
+    private Long id;
     private String name;
     private String surname;
     @ManyToOne
@@ -34,11 +34,11 @@ public class Host {
     }
 
     public Long getId() {
-        return host_id;
+        return id;
     }
 
     public void setId(Long id) {
-        this.host_id = id;
+        this.id = id;
     }
 
     public String getName() {

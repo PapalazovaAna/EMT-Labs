@@ -11,7 +11,7 @@ import java.util.List;
 public class Guest {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long guest_id;
+    private Long id;
     private String name;
     private String surname;
     @ManyToOne
@@ -31,11 +31,11 @@ public class Guest {
     }
 
     public Long getId() {
-        return guest_id;
+        return id;
     }
 
     public void setId(Long id) {
-        this.guest_id = id;
+        this.id = id;
     }
 
     public String getName() {
